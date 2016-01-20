@@ -7,6 +7,10 @@ CKEDITOR.plugins.add( 'inlinesave',
 				exec : function( editor )
 				{
 					(function addData() {
+						if(typeof editor.config.inlinesave == 'undefined') { // give useful error message if user doesn't define config.inlinesave
+							throw new Error("CKEditor inlinesave addData(): You must define config.inlinesave in your configuration file. See http://ckeditor.com/addon/inlinesave");
+							return;
+						}
 						var data = editor.getData(),
 						    dataID = editor.container.getId(),
 						    onSuccess = function() {},  	 	// callback when save is successful
