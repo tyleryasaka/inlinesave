@@ -1,4 +1,4 @@
-This repository houses 2 plugins for CKEditor: inlinesave and inlinecancel.
+This repository houses 2 plugins for CKEditor: [inlinesave](#inlinesave) and [inlinecancel](#inlinecancel).
 
 inlinesave
 ==========
