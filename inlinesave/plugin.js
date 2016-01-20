@@ -6,58 +6,38 @@ CKEDITOR.plugins.add( 'inlinesave',
 			{
 				exec : function( editor )
 				{
-					addData();
-					function addData() {
-						var data = editor.getData();
-						var dataID = editor.container.getId();
-						var url = '';
-						var onSuccess = function() {}; // callback when save is successful
-						var onFailure = function(statusCode) {}; // callback when save fails
-						url = editor.config.inlinesave.postUrl; // url to post data to
-						onSuccess = editor.config.inlinesave.onSuccess;
-						onFailure = editor.config.inlinesave.onFailure;
-						if(editor.config.inlinesave.useJqueryPost) { // use the old jquery post method if desired
-							jQuery.ajax({
-								type: "POST",
-								url: url,
-								data: {
-									editabledata: data,
-									editorID: dataID
-								}
-							})
-							.done(function (data, textStatus, jqXHR) {
-								if(jqXHR.status == '200') {
-									onSuccess();
-								}
-								else {
-									onFailure(jqXHR.status);
-								}
-							})
-							.fail(function (jqXHR, textStatus, errorThrown) {
-								onFailure(jqXHR.status);
-							});
-						}
-						else { // use pure javascript and send the data in json format (default)
-							var payload = JSON.stringify({
-								editabledata: data,
-								editorID: dataID
-							});
-							var xhttp = new XMLHttpRequest();
-							xhttp.onreadystatechange = function() {
-								if(xhttp.readyState == 4) {
-									if(xhttp.status == 200) {
-										onSuccess();
-									}
-									else {
-										onFailure(xhttp.status);
-									}
-								}
-							};
-							xhttp.open("POST", url, true);
-							xhttp.setRequestHeader("Content-type", 'application/json');
-							xhttp.send(payload);
-						}
+					var config = editor.config.inlinesave, 
+					    postData = {};
+					
+					if (!config.postUrl) return;			// Must have a url to post data to
+					  
+					if (typeof config.onSave == "function") {
+						onSave(editor);				// Allow showing spinner
 					}
+					
+					// Clone postData object from config and add editabledata and editorID properties
+					CKEDITOR.tools.extend(postData, config.postData || {}, true);  // Clone config.postData to prevent changing the config.
+					postData.editabledata = editor.getData();
+					postData.editorID = editor.container.getId();
+					
+					// Use pure javascript (no dependencies) and send the data in json format...
+					var xhttp = new XMLHttpRequest();
+					xhttp.onreadystatechange = function() {
+						if (xhttp.readyState == 4) {
+							// If success, call onSuccess callback if defined
+							if (typeof config.onSuccess == "function" && xhttp.status == 200) {
+								onSuccess(editor, xhttp.response); // Allow server to return data
+							}
+							// If error, call onFailure callback if defined
+							else if (typeof config.onFailure == "function") {
+								onFailure(editor, xhttp.status, xhttp);
+							}
+						}
+					};
+					xhttp.open("POST", config.postUrl, true);
+					xhttp.setRequestHeader("Content-type", 'application/json');
+					xhttp.send(JSON.stringify(postData));	// Send data in JSON format...
+					
 				}
 			});
 		editor.ui.addButton( 'Inlinesave',
