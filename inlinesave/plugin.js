@@ -14,7 +14,7 @@ CKEDITOR.plugins.add( 'inlinesave',
 						    inlinesavecfg = editor.config.inlinesave,
 						    url = inlinesavecfg.postUrl || ''; 		// url to post data to
 						onSuccess = inlinesavecfg.onSuccess || onSuccess;
-						onFailure = inlinsavecfg.onFailure || onFailure;
+						onFailure = inlinesavecfg.onFailure || onFailure;
 						if (!!inlinesavecfg.useJqueryPost) { 		// use the old jquery post method if desired
 							jQuery.ajax({
 								type: "POST",

@@ -15,7 +15,7 @@ This plugin allows the user to save the content for an inline editor via http PO
 
 The options are:
 - `postUrl` (string): the url to send the data to, via http POST
-- `onSuccess` (function): function to call when data is sent successfully
+- `onSuccess` (function): function to call when data is sent successfully; http response data is passed into this function
 - `onFail` (function): function to call when data cannot be sent; the http status code is passed into this function
 - `useJqueryPost` (boolean): if set to `true`, uses jQuery post and url encoded data (this is for backwards compatibility more than anything else; it is optional and defaults to `false`)
 
@@ -23,7 +23,7 @@ Sample configuration object (place this in your configuration file):
 
     config.inlinesave = {
       postUrl: '/myurl',
-      onSuccess: function() { console.log('success'); },
+      onSuccess: function(data) { console.log('success', data); },
       onFailure: function(error) { console.log('fail', error); },
       useJqueryPost: false
     };
