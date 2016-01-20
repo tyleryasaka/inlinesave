@@ -7,7 +7,7 @@ CKEDITOR.plugins.add( 'inlinecancel',
 				exec : function( editor )
 				{
 					var onCancel = editor.config.inlinecancel.onCancel;
-					if(onCancel) {
+					if (typeof onCancel === "function") {
 						onCancel();
 					}
 					else {
