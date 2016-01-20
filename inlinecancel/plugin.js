@@ -8,7 +8,7 @@ CKEDITOR.plugins.add( 'inlinecancel',
 				{
 					var onCancel = editor.config.inlinecancel.onCancel;
 					if (typeof onCancel === "function") {
-						onCancel();
+						onCancel(editor);
 					}
 					else {
 						if(confirm("Cancel and reload page? (All progress since last save will be lost.)"))
