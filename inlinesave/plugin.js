@@ -6,52 +6,38 @@ CKEDITOR.plugins.add( 'inlinesave',
 			{
 				exec : function( editor )
 				{
-					var data = editor.getData(),
-					    dataID = editor.container.getId(),
-					    inlinesavecfg = editor.config.inlinesave,
-					    url = inlinesavecfg.postUrl || '', 			// url to post data to
-					    noop = function() {},
-					    onSuccess = (typeof inlinesavecfg.onSuccess === "function") 
-							? inlinesavecfg.onSuccess || noop, 	// callback when save is successful
-					    onFailure = (typeof inlinesavecfg.onFailure === "function") 
-							? inlinesavecfg.onFailure || noop; 	// callback when save fails
-					    
-					if (!!inlinesavecfg.useJqueryPost) { 			// use the old jquery post method if desired
-						jQuery.ajax({
-							type: "POST",
-							url: url,
-							data: {
-								editabledata: data,
-								editorID: dataID
-							},
-							success: function(data, textStatus, jqXHR) {
-								onSuccess(data, editor);   	// Allow server to return data
-							},
-							error: function (jqXHR, textStatus, errorThrown) {
-								onFailure(jqXHR.status, editor);
-							}
-						});
+					var config = editor.config.inlinesave, 
+					    postData = {};
+					
+					if (!config.postUrl) return;			// Must have a url to post data to
+					  
+					if (typeof config.onSave == "function") {
+						onSave(editor);				// Allow showing spinner
 					}
-					else { // use pure javascript and send the data in json format (default)
-						var payload = JSON.stringify({
-							editabledata: data,
-							editorID: dataID
-						});
-						var xhttp = new XMLHttpRequest();
-						xhttp.onreadystatechange = function() {
-							if(xhttp.readyState == 4) {
-								if(xhttp.status == 200) {
-									onSuccess(xhttp.response, editor); // Allow server to return data
-								}
-								else {
-									onFailure(xhttp.status, editor);
-								}
+					
+					// Clone postData object from config and add editabledata and editorID properties
+					CKEDITOR.tools.extend(postData, config.postData || {}, true);  // Clone config.postData to prevent changing the config.
+					postData.editabledata = editor.getData();
+					postData.editorID = editor.container.getId();
+					
+					// Use pure javascript (no dependencies) and send the data in json format...
+					var xhttp = new XMLHttpRequest();
+					xhttp.onreadystatechange = function() {
+						if (xhttp.readyState == 4) {
+							// If success, call onSuccess callback if defined
+							if (typeof config.onSuccess == "function" && xhttp.status == 200) {
+								onSuccess(editor, xhttp.response); // Allow server to return data
 							}
-						};
-						xhttp.open("POST", url, true);
-						xhttp.setRequestHeader("Content-type", 'application/json');
-						xhttp.send(payload);
-					}
+							// If error, call onFailure callback if defined
+							else if (typeof config.onFailure == "function") {
+								onFailure(editor, xhttp.status, xhttp);
+							}
+						}
+					};
+					xhttp.open("POST", config.postUrl, true);
+					xhttp.setRequestHeader("Content-type", 'application/json');
+					xhttp.send(JSON.stringify(postData));	// Send data in JSON format...
+					
 				}
 			});
 		editor.ui.addButton( 'Inlinesave',
