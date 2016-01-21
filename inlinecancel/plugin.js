@@ -14,10 +14,6 @@ CKEDITOR.plugins.add( 'inlinecancel',
 					if (typeof onCancel === "function") {
 						onCancel(editor);
 					}
-					else {
-						if(confirm("Cancel and reload page? (All progress since last save will be lost.)"))
-							location.reload(true);
-					}
 				}
 			});
 		editor.ui.addButton( 'Inlinecancel',

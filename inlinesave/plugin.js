@@ -9,17 +9,17 @@ CKEDITOR.plugins.add( 'inlinesave',
 					var config = editor.config.inlinesave, 
 					    postData = {};
 					
-					if (typeof config == "undefined") { // give useful error message if user doesn't define config.inlinesave
+					if (typeof config == "undefined") { // Give useful error message if user doesn't define config.inlinesave
 						throw new Error("CKEditor inlinesave: You must define config.inlinesave in your configuration file. See http://ckeditor.com/addon/inlinesave");
 						return;
 					}
-					if (typeof config.postUrl == "undefined") { // give useful error message if user doesn't define config.inlinesave.postUrl
+					if (typeof config.postUrl == "undefined") { // Give useful error message if user doesn't define config.inlinesave.postUrl
 						throw new Error("CKEditor inlinesave: You must define config.inlinesave.postUrl in your configuration file. See http://ckeditor.com/addon/inlinesave");
 						return;
 					}
 
 					if (typeof config.onSave == "function") {
-						config.onSave(editor);				// Allow showing spinner
+						config.onSave(editor);				// Allow showing "loading" spinner
 					}
 					
 					// Clone postData object from config and add editabledata and editorID properties
