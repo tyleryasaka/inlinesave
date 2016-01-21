@@ -5,7 +5,7 @@ inlinesave
 
 http://ckeditor.com/addon/inlinesave
 
-This plugin allows the user to save the content for an inline editor via http POST.
+This plugin allows the user to save the content for a CKEditor inline editor via http POST.
 
 ###Usage
 
@@ -15,22 +15,24 @@ This plugin allows the user to save the content for an inline editor via http PO
 
 The options are:
 - `postUrl` (string): the url to send the data to, via http POST
-- `onSave` (function): function to call when the save button is pressed (optional); editor element is passed into this function
-- `onSuccess` (function): function to call when data is sent successfully; editor element and http response data are passed into this function
-- `onFail` (function): function to call when data cannot be sent; the editor element, http status code, and [XMLHttpRequest](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest) object are passed into this function
+- `postData` (object; optional): a JavaScript object containing additional data to send with the save; e.g., {test: true}
+- `onSave` (function; optional): function to call when the save button is pressed; editor element is passed into this function
+- `onSuccess` (function; optional): function to call when data is sent successfully; editor element and http response data are passed into this function
+- `onFail` (function; optional): function to call when data cannot be sent; the editor element, http status code, and [XMLHttpRequest](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest) object are passed into this function
 
-Sample configuration object (place this in your configuration file):
+Sample configuration object (place this in your configuration file or use when initializing a new inline editor instance):
 
     config.inlinesave = {
       postUrl: '/myurl',
-      onSave: function(editor) { console.log('clicked save', editor); },
-      onSuccess: function(editor, data) { console.log('save successful', editor, data); },
+      postData: {test: true},                                                                              
+      onSave: function(editor) { console.log('clicked save', editor); },                                   
+      onSuccess: function(editor, data) { console.log('save successful', editor, data); },                 
       onFailure: function(editor, status, request) { console.log('save failed', editor, status, request); }
     };
 
 ####3. Receive the data on your server.
 
-The data is sent as JSON. There are 2 fields you will receive:
+The data is sent as JSON. There are 2 fields you will always receive, in addition to those specified in the postData option:
 
 - editabledata (string): the data being saved from the editor
 - editorID (string): the identifier for the editor (useful for distinguishing between different editors)
@@ -38,8 +40,8 @@ The data is sent as JSON. There are 2 fields you will receive:
 Example data (in default JSON format):
 
     {
-      editabledata: '<h1>Hello world!</h1>\n\n<p>I&#39;m an instance of <a href="http://ckeditor.com">CKEditor</a>.</p>\n',
-      editorID: 'cke_editor'
+      "editabledata": "<h1>Hello world!</h1>\n\n<p>I&#39;m an instance of <a href=\"http://ckeditor.com\">CKEditor</a>.</p>\n",
+      "editorID": "cke_editor"
     }
 
 ###Usage with CKEditor notifications
@@ -48,7 +50,7 @@ Use inlinesave along with the [notification](http://ckeditor.com/addon/notificat
 
 Use the following code in the `onSuccess` callback to display a nice success notification:
 
-    editor.showNotification( 'Your content has been successfully saved.', 'success' );
+    editor.showNotification( 'Your changes have been successfully saved.', 'success' );
 
 Likewise, the following code can be added to the `onFailure` callback:
 
@@ -58,8 +60,8 @@ Likewise, the following code can be added to the `onFailure` callback:
 
 Some nifty things that can be done with this plugin, even with multiple inline editor instances on a web page:
 
-1. Specify and save arbitrary data to the server along with the save.
-2.  Start showing a "loading" spinner via the `onSave` callback and remove it in either the `onSuccess` or `onFailure` callbacks.
+1. Specify and save arbitrary data to the server along with the save by using the postData option.
+2. Start showing a "loading" spinner via the `onSave` callback and remove it in either the `onSuccess` or `onFailure` callbacks.
 3. Manipulate the editor instances from the callbacks using the editor parameter passed to them.
 4. If using the [inlinecancel](#inlinecancel) plugin as well: along with #3 above, changes can be undone with inlinecancel's `onCancel` callback, if the original editor state is saved prior to edits.
 
