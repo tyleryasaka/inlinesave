@@ -56,12 +56,12 @@ This is a simple cancel button for the CKEditor toolbar, designed to go along wi
 ####2. Set configuration options
 
 The options are:
-- `onCancel` (function): function to call when the button is clicked (optional)
+- `onCancel` (function): function to call when the button is clicked (optional); editor element is passed into this function (can be used to manually undo changes, without a page reload)
 
 Sample configuration object (place this in your configuration file):
 
     config.inlinecancel = {
-      onCancel: function() { console.log('cancel'); }
+      onCancel: function(editor) { console.log('cancel', editor); }
     };
 
 
