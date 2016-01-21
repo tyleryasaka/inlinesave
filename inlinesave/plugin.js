@@ -19,7 +19,7 @@ CKEDITOR.plugins.add( 'inlinesave',
 					}
 
 					if (typeof config.onSave == "function") {
-						onSave(editor);				// Allow showing spinner
+						config.onSave(editor);				// Allow showing spinner
 					}
 					
 					// Clone postData object from config and add editabledata and editorID properties
@@ -33,11 +33,11 @@ CKEDITOR.plugins.add( 'inlinesave',
 						if (xhttp.readyState == 4) {
 							// If success, call onSuccess callback if defined
 							if (typeof config.onSuccess == "function" && xhttp.status == 200) {
-								onSuccess(editor, xhttp.response); // Allow server to return data
+								config.onSuccess(editor, xhttp.response); // Allow server to return data
 							}
 							// If error, call onFailure callback if defined
 							else if (typeof config.onFailure == "function") {
-								onFailure(editor, xhttp.status, xhttp);
+								config.onFailure(editor, xhttp.status, xhttp);
 							}
 						}
 					};
