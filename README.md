@@ -30,7 +30,7 @@ Sample configuration object (place this in your configuration file):
 
 ####3. Receive the data on your server.
 
-By default the data is sent as JSON. (If you set useJqueryPost to `true`, then the data will be sent using jQuery's post method instead.) There are 2 fields you will receive either way:
+The data is sent as JSON. There are 2 fields you will receive:
 
 - editabledata (string): the data being saved from the editor
 - editorID (string): the identifier for the editor (useful for distinguishing between different editors)
