@@ -9,11 +9,7 @@ CKEDITOR.plugins.add( 'inlinesave',
 					var config = editor.config.inlinesave, 
 					    postData = {};
 					
-					if (typeof config == "undefined") { // Give useful error message if user doesn't define config.inlinesave
-						throw new Error("CKEditor inlinesave: You must define config.inlinesave in your configuration file. See http://ckeditor.com/addon/inlinesave");
-						return;
-					}
-					if (typeof config.postUrl == "undefined") { // Give useful error message if user doesn't define config.inlinesave.postUrl
+					if (typeof config.postUrl == "undefined") { // Give useful error message if user doesn't define config.inlinesave.postUrl (or config.inlinesave)
 						throw new Error("CKEditor inlinesave: You must define config.inlinesave.postUrl in your configuration file. See http://ckeditor.com/addon/inlinesave");
 						return;
 					}
@@ -27,13 +23,20 @@ CKEDITOR.plugins.add( 'inlinesave',
 					postData.editabledata = editor.getData();
 					postData.editorID = editor.container.getId();
 					
+					// Convert postData object to multi-part form data query string for post like jQuery does by default.
+					var formData = '';
+					for (var key in postData) { 		// Must encode data to handle special characters
+						formData += '&' + key + '=' + encodeURIComponent(postData[key]);  
+					}
+					
 					// Use pure javascript (no dependencies) and send the data in json format...
 					var xhttp = new XMLHttpRequest();
 					xhttp.onreadystatechange = function() {
 						if (xhttp.readyState == 4) {
 							// If success, call onSuccess callback if defined
 							if (typeof config.onSuccess == "function" && xhttp.status == 200) {
-								config.onSuccess(editor, xhttp.response); // Allow server to return data
+								// Allow server to return data via xhttp.response
+								config.onSuccess(editor, xhttp.response); 
 							}
 							// If error, call onFailure callback if defined
 							else if (typeof config.onFailure == "function") {
@@ -42,8 +45,9 @@ CKEDITOR.plugins.add( 'inlinesave',
 						}
 					};
 					xhttp.open("POST", config.postUrl, true);
-					xhttp.setRequestHeader("Content-type", 'application/json');
-					xhttp.send(JSON.stringify(postData));	// Send data in JSON format...
+					// Send as form data encoded to handle special characters.
+					xhttp.setRequestHeader("Content-type", 'application/x-www-form-urlencoded; charset=UTF-8');
+					xhttp.send(formData.slice(1));																															// Remove initial '&'
 				}
 			});
 		editor.ui.addButton( 'Inlinesave',
