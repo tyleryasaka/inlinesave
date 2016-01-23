@@ -19,7 +19,7 @@ The options are:
 - `onSave` (function; optional): function to call when the save button is pressed; editor element is passed into this function
 - `onSuccess` (function; optional): function to call when data is sent successfully; editor element and http response data are passed into this function
 - `onFail` (function; optional): function to call when data cannot be sent; the editor element, http status code, and [XMLHttpRequest](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest) object are passed into this function
-- `useJSON` (boolean; optional): when `true`, the plugin will send data to the server with Content-type 'application/json'; defaults to `false` and uses Content-type 'application/x-www-form-urlencoded' (see [next step]('#3'))
+- `useJSON` (boolean; optional): when `true`, the plugin will send data to the server with Content-type 'application/json'; defaults to `false` and uses Content-type 'application/x-www-form-urlencoded' (see step #3)
 
 Sample configuration object (place this in your configuration file or use when initializing a new inline editor instance):
 
