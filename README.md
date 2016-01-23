@@ -15,10 +15,11 @@ This plugin allows the user to save the content for a CKEditor inline editor via
 
 The options are:
 - `postUrl` (string): the url to send the data to, via http POST
-- `postData` (object; optional): a JavaScript object containing additional data to send with the save; e.g., {test: true}
+- `postData` (object; optional): a JavaScript object containing additional data to send with the save; e.g.,` {test: true}`
 - `onSave` (function; optional): function to call when the save button is pressed; editor element is passed into this function
 - `onSuccess` (function; optional): function to call when data is sent successfully; editor element and http response data are passed into this function
 - `onFail` (function; optional): function to call when data cannot be sent; the editor element, http status code, and [XMLHttpRequest](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest) object are passed into this function
+- `useJSON` (boolean; optional): when `true`, the plugin will send data to the server with Content-type 'application/json'; defaults to `false` and uses Content-type 'application/x-www-form-urlencoded' (see [next step]('#3'))
 
 Sample configuration object (place this in your configuration file or use when initializing a new inline editor instance):
 
@@ -27,22 +28,26 @@ Sample configuration object (place this in your configuration file or use when i
       postData: {test: true},                                                                              
       onSave: function(editor) { console.log('clicked save', editor); },                                   
       onSuccess: function(editor, data) { console.log('save successful', editor, data); },                 
-      onFailure: function(editor, status, request) { console.log('save failed', editor, status, request); }
+      onFailure: function(editor, status, request) { console.log('save failed', editor, status, request); },
+      useJSON: false
     };
 
 ####3. Receive the data on your server.
 
-The data is sent as JSON. There are 2 fields you will always receive, in addition to those specified in the postData option:
+By default, the data is sent with Content-type 'application/x-www-form-urlencoded' (this is the default type for HTML forms). However, if `config.useJSON` is set to `true`, then the Content-type will be 'application/json' and the data will be sent as a JSON object.
+
+In either case, there are 2 fields you will always receive, in addition to those specified in the postData option:
 
 - editabledata (string): the data being saved from the editor
 - editorID (string): the identifier for the editor (useful for distinguishing between different editors)
 
-Example data (in default JSON format):
+Example data:
 
-    {
-      "editabledata": "<h1>Hello world!</h1>\n\n<p>I&#39;m an instance of <a href=\"http://ckeditor.com\">CKEditor</a>.</p>\n",
-      "editorID": "cke_editor"
-    }
+- editabledata: `'<h1>Hello world!</h1>\n\n<p>I&#39;m an instance of <a href="http://ckeditor.com">CKEditor</a>.</p>\n'`
+- editorID: `'cke_editor'`
+- test: `'true'`
+
+Note that 'test' was an additional field specified in `config.inlinesave.postData` (as demonstrated in the example configuration above).
 
 ###Usage with CKEditor notifications
 
