@@ -34,7 +34,7 @@ Sample configuration object (place this in your configuration file or use when i
 
 ####3. Receive the data on your server.
 
-By default, the data is sent with Content-type 'application/x-www-form-urlencoded' (this is the default type for HTML forms). However, if `config.useJSON` is set to `true`, then the Content-type will be 'application/json' and the data will be sent as a JSON object.
+By default, the data is sent with Content-type 'application/x-www-form-urlencoded' (this is the default type for HTML forms). However, if `config.inlinesave.useJSON` is set to `true`, then the Content-type will be 'application/json' and the data will be sent as a JSON object.
 
 In either case, there are 2 fields you will always receive, in addition to those specified in the postData option:
 
