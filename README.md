@@ -49,26 +49,9 @@ Example data:
 
 Note that 'test' was an additional field specified in `config.inlinesave.postData` (as demonstrated in the example configuration above).
 
-###Usage with CKEditor notifications
+###More examples
 
-Use inlinesave along with the [notification](http://ckeditor.com/addon/notification) addon to easily display nice notifications.
-
-Use the following code in the `onSuccess` callback to display a nice success notification:
-
-    editor.showNotification( 'Your changes have been successfully saved.', 'success' );
-
-Likewise, the following code can be added to the `onFailure` callback:
-
-    editor.showNotification( 'Your changes could not be saved at this time.', 'warning' );
-
-###Notes
-
-Some nifty things that can be done with this plugin, even with multiple inline editor instances on a web page:
-
-1. Specify and save arbitrary data to the server along with the save by using the postData option.
-2. Start showing a "loading" spinner via the `onSave` callback and remove it in either the `onSuccess` or `onFailure` callbacks.
-3. Manipulate the editor instances from the callbacks using the editor parameter passed to them.
-4. If using the [inlinecancel](#inlinecancel) plugin as well: along with #3 above, changes can be undone with inlinecancel's `onCancel` callback, if the original editor state is saved prior to edits.
+If you would like to see more detailed examples and some neat uses for the plugin, check out [callbacks.md](https://github.com/tyleryasaka/inlinesave/blob/master/callbacks.md).
 
 inlinecancel
 ==========
