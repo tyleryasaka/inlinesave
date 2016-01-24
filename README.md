@@ -14,7 +14,7 @@ This plugin allows the user to save the content for a CKEditor inline editor via
 ####2. Set configuration options
 
 The options are:
-- `postUrl` (string): the url to send the data to, via http POST
+- `postUrl` (string; required): the url to send the data to, via http POST
 - `postData` (object; optional): a JavaScript object containing additional data to send with the save; e.g.,` {test: true}`
 - `onSave` (function; optional): function to call when the save button is pressed; editor element is passed into this function
 - `onSuccess` (function; optional): function to call when data is sent successfully; editor element and http response data are passed into this function
