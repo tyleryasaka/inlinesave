@@ -49,6 +49,16 @@ Example data:
 
 Note that 'test' was an additional field specified in `config.inlinesave.postData` (as demonstrated in the example configuration above).
 
+###Display label
+
+![Save label](docs/img/save-label.png)
+
+If you want the label "Save" to display next to the icon, add the following css to your site:
+
+    .cke_button_label.cke_button__inlinesave_label {
+        display: inline;
+    }
+
 ###More examples
 
 If you would like to see more detailed examples and some neat uses for the plugin, check out [callbacks.md](https://github.com/tyleryasaka/inlinesave/blob/master/callbacks.md).
@@ -74,6 +84,16 @@ Sample configuration object (place this in your configuration file):
     config.inlinecancel = {
       onCancel: function(editor) { console.log('cancel', editor); }
     };
+
+###Display label
+
+![Cancel label](docs/img/cancel-label.png)
+
+If you want the label "Cancel" to display next to the icon, add the following css to your site:
+
+    .cke_button_label.cke_button__inlinecancel_label {
+        display: inline;
+    }
 
 ###Credits
 
