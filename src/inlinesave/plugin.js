@@ -69,7 +69,7 @@ CKEDITOR.plugins.add( 'inlinesave',
 		{
 			label: 'Save',
 			command: 'inlinesave',
-			icon: this.path + 'images/inlinesave.png'
+			icon: this.path + 'images/inlinesave.svg'
 		} );
 	}
 } );

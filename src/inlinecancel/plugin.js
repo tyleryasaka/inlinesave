@@ -18,9 +18,9 @@ CKEDITOR.plugins.add( 'inlinecancel',
 			});
 		editor.ui.addButton( 'Inlinecancel',
 		{
-			label: 'Cancel and Reload Page',
+			label: 'Cancel',
 			command: 'inlinecancel',
-			icon: this.path + 'images/inlinecancel.png'
+			icon: this.path + 'images/inlinecancel.svg'
 		} );
 	}
 } );
