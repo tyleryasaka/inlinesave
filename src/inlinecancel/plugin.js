@@ -2,6 +2,8 @@ CKEDITOR.plugins.add( 'inlinecancel',
 {
 	init: function( editor )
 	{
+		var config = editor.config.inlinecancel,
+		    iconName = !!config.useColorIcon ? 'inlinecancel-color.svg' : 'inlinecancel.svg';
 		editor.addCommand( 'inlinecancel',
 			{
 				exec : function( editor )
@@ -20,7 +22,7 @@ CKEDITOR.plugins.add( 'inlinecancel',
 		{
 			label: 'Cancel',
 			command: 'inlinecancel',
-			icon: this.path + 'images/inlinecancel.svg'
+			icon: this.path + 'images/' + iconName
 		} );
 	}
 } );

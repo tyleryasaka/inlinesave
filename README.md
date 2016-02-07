@@ -20,6 +20,7 @@ The options are:
 - `onSuccess` (function; optional): function to call when data is sent successfully; editor element and http response data are passed into this function
 - `onFail` (function; optional): function to call when data cannot be sent; the editor element, http status code, and [XMLHttpRequest](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest) object are passed into this function
 - `useJSON` (boolean; optional): when `true`, the plugin will send data to the server with Content-type 'application/json'; defaults to `false` and uses Content-type 'application/x-www-form-urlencoded' (see step #3)
+- `useColorIcon` (boolean; optional): when `true`, icon will be green instead of gray
 
 Sample configuration object (place this in your configuration file or use when initializing a new inline editor instance):
 
@@ -29,7 +30,8 @@ Sample configuration object (place this in your configuration file or use when i
       onSave: function(editor) { console.log('clicked save', editor); },                                   
       onSuccess: function(editor, data) { console.log('save successful', editor, data); },                 
       onFailure: function(editor, status, request) { console.log('save failed', editor, status, request); },
-      useJSON: false
+      useJSON: false,
+      useColorIcon: false
     };
 
 ####3. Receive the data on your server.
@@ -59,6 +61,12 @@ If you want the label "Save" to display next to the icon, add the following css 
         display: inline;
     }
 
+###Use Color Icon
+
+![Color icon](docs/img/save-color.png)
+
+If you set the `useColorIcon` configuration option to `true` (see above), the icon will be green instead of grey.
+
 ###More examples
 
 If you would like to see more detailed examples and some neat uses for the plugin, check out [callbacks.md](https://github.com/tyleryasaka/inlinesave/blob/master/callbacks.md).
@@ -78,11 +86,13 @@ This is a simple cancel button for the CKEditor toolbar, designed to go along wi
 
 The options are:
 - `onCancel` (function; optional): function to call when the button is clicked; editor element is passed into this function (can be used to manually undo changes; see [notes](#notes))
+- `useColorIcon` (boolean; optional): when `true`, icon will be red instead of gray
 
 Sample configuration object (place this in your configuration file):
 
     config.inlinecancel = {
-      onCancel: function(editor) { console.log('cancel', editor); }
+      onCancel: function(editor) { console.log('cancel', editor); },
+      useColorIcon: false
     };
 
 ###Display label
@@ -94,6 +104,12 @@ If you want the label "Cancel" to display next to the icon, add the following cs
     .cke_button_label.cke_button__inlinecancel_label {
         display: inline;
     }
+
+###Use Color Icon
+
+![Color icon](docs/img/cancel-color.png)
+
+If you set the `useColorIcon` configuration option to `true` (see above), the icon will be red instead of grey.
 
 ###Credits
 

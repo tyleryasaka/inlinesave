@@ -2,12 +2,13 @@ CKEDITOR.plugins.add( 'inlinesave',
 {
 	init: function( editor )
 	{
+		var config = editor.config.inlinesave,
+		    iconName = !!config.useColorIcon ? 'inlinesave-color.svg' : 'inlinesave.svg';
 		editor.addCommand( 'inlinesave',
 			{
 				exec : function( editor )
 				{
-					var config = editor.config.inlinesave, 
-					    postData = {},
+					var postData = {},
 					    payload = '',
 					    contentType = 'application/x-www-form-urlencoded; charset=UTF-8';
 					
@@ -69,7 +70,7 @@ CKEDITOR.plugins.add( 'inlinesave',
 		{
 			label: 'Save',
 			command: 'inlinesave',
-			icon: this.path + 'images/inlinesave.svg'
+			icon: this.path + 'images/' + iconName
 		} );
 	}
 } );
