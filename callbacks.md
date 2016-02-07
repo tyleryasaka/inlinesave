@@ -98,35 +98,35 @@ In addition, it can be helpful to also use the focus and blur callbacks that CKE
     While CKEditor does have an undo manager and periodically takes snapshots of your content so that it can be undone, for a simple onCancel functionality, we can just save the initial contents of the editor as a data attribute in the on focus event.  The following should give you a general idea of how to implement this.
 
     ```
-    function saveEditorState(editor) {
+    function saveEditorContents(editor) {
         var containerId = editor.container.getId();
-        document.getElementById(containerId).dataset.savedHTML = editor.getData();  // Save current editor state in data attribute
+        document.getElementById(containerId).dataset.savedHTML = editor.getData();  // Save current editor contents in data attribute
     }
 
-    function restoreEditorState(editor) {
+    function restoreEditorContents(editor) {
         var containerId = editor.container.getId(),
             dataset = document.getElementById(containerId).dataset;
-        if (savedHTML in dataset) {                          // Make sure state was actually saved
-            editor.setData(dataset.savedHTML);               // Restore state from data attribute
+        if (savedHTML in dataset) {                          // Make sure contents were actually saved
+            editor.setData(dataset.savedHTML);               // Restore editor contents from data attribute
         }
     }
     
     config.inlinesave.onSuccess = function(editor, data) { 
-        saveEditorState(editor);                            // Saves the current state on successful save.
+        saveEditorContents(editor);                            // Saves the current editor contents on successful save.
         // Show notifications, hide spinner, etc.
     };
 
     config.inlinecancel.onCancel = function(editor) { 
-        restoreEditorState(editor);                         // Undo all changes since last time state was saved.
+        restoreEditorContents(editor);                         // Undo all changes since last time contents were saved.
         // Show notifications, etc.
     };
 
     config.on = {
       focus: function(event) {
-            saveEditorState(event.editor);      // Need to save the initial state.
+            saveEditorContents(event.editor);      // Need to save the initial contents.
       },
       blur: function(event) {
-            restoreEditorState(event.editor);   // Makes blur work like cancel... Delete this if you don't want that.
+            restoreEditorContents(event.editor);   // Makes blur work like cancel... Delete this if you don't want that.
       }
     };
     ```
