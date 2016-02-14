@@ -16,7 +16,7 @@ This plugin allows the user to save the content for a CKEditor inline editor via
 The options are:
 - `postUrl` (string; required): the url to send the data to, via http POST
 - `postData` (object; optional): a JavaScript object containing additional data to send with the save; e.g.,` {test: true}`
-- `onSave` (function; optional): function to call when the save button is pressed; editor element is passed into this function
+- `onSave` (function; optional): function to call when the save button is pressed; editor element is passed into this function; data will be sent to server only if `true` is returned
 - `onSuccess` (function; optional): function to call when data is sent successfully; editor element and http response data are passed into this function
 - `onFail` (function; optional): function to call when data cannot be sent; the editor element, http status code, and [XMLHttpRequest](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest) object are passed into this function
 - `useJSON` (boolean; optional): when `true`, the plugin will send data to the server with Content-type 'application/json'; defaults to `false` and uses Content-type 'application/x-www-form-urlencoded' (see step #3)
@@ -26,9 +26,9 @@ Sample configuration object (place this in your configuration file or use when i
 
     config.inlinesave = {
       postUrl: '/myurl',
-      postData: {test: true},                                                                              
-      onSave: function(editor) { console.log('clicked save', editor); },                                   
-      onSuccess: function(editor, data) { console.log('save successful', editor, data); },                 
+      postData: {test: true},
+      onSave: function(editor) { console.log('clicked save', editor); return true; },
+      onSuccess: function(editor, data) { console.log('save successful', editor, data); },
       onFailure: function(editor, status, request) { console.log('save failed', editor, status, request); },
       useJSON: false,
       useColorIcon: false
