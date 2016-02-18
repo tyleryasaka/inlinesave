@@ -16,9 +16,9 @@ This plugin allows the user to save the content for a CKEditor inline editor via
 The options are:
 - `postUrl` (string; required): the url to send the data to, via http POST
 - `postData` (object; optional): a JavaScript object containing additional data to send with the save; e.g.,` {test: true}`
-- `onSave` (function; optional): function to call when the save button is pressed; editor element is passed into this function; data will be sent to server only if `true` is returned
+- `onSave` (function; optional): function to call when the save button is pressed; editor element is passed into this function; if `false` is returned, data will not be sent to server
 - `onSuccess` (function; optional): function to call when data is sent successfully; editor element and http response data are passed into this function
-- `onFail` (function; optional): function to call when data cannot be sent; the editor element, http status code, and [XMLHttpRequest](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest) object are passed into this function
+- `onFailure` (function; optional): function to call when data cannot be sent; the editor element, http status code, and [XMLHttpRequest](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest) object are passed into this function
 - `useJSON` (boolean; optional): when `true`, the plugin will send data to the server with Content-type 'application/json'; defaults to `false` and uses Content-type 'application/x-www-form-urlencoded' (see step #3)
 - `useColorIcon` (boolean; optional): when `true`, icon will be green instead of gray
 
