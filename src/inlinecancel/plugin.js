@@ -20,6 +20,7 @@ CKEDITOR.plugins.add( 'inlinecancel',
 			});
 		editor.ui.addButton( 'Inlinecancel',
 		{
+			toolbar: 'document',
 			label: 'Cancel',
 			command: 'inlinecancel',
 			icon: this.path + 'images/' + iconName
