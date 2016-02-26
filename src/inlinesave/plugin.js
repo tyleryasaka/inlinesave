@@ -81,6 +81,7 @@ CKEDITOR.plugins.add( 'inlinesave',
 			});
 		editor.ui.addButton( 'Inlinesave',
 		{
+			toolbar: 'document',
 			label: 'Save',
 			command: 'inlinesave',
 			icon: this.path + 'images/' + iconName
