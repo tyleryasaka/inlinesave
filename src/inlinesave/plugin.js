@@ -3,7 +3,14 @@ CKEDITOR.plugins.add( 'inlinesave',
 	init: function( editor )
 	{
 		var config = editor.config.inlinesave,
-		    iconName = !!config.useColorIcon ? 'inlinesave-color.svg' : 'inlinesave.svg';
+		    iconName;
+		    
+		if (typeof config == "undefined") { // Give useful error message if user doesn't define config.inlinesave
+			throw new Error("CKEditor inlinesave: You must define config.inlinesave in your configuration file. See http://ckeditor.com/addon/inlinesave");
+			return;
+		}
+		    
+		iconName = !!config.useColorIcon ? 'inlinesave-color.svg' : 'inlinesave.svg';
 
 		editor.addCommand( 'inlinesave',
 			{
@@ -12,11 +19,6 @@ CKEDITOR.plugins.add( 'inlinesave',
 					var postData = {},
 					    payload = '',
 					    contentType = 'application/x-www-form-urlencoded; charset=UTF-8';
-
-					if (typeof config == "undefined") { // Give useful error message if user doesn't define config.inlinesave
-						throw new Error("CKEditor inlinesave: You must define config.inlinesave in your configuration file. See http://ckeditor.com/addon/inlinesave");
-						return;
-					}
 					
 					if (typeof config.postUrl == "undefined") { // Give useful error message if user doesn't define config.inlinesave.postUrl (or config.inlinesave)
 						throw new Error("CKEditor inlinesave: You must define config.inlinesave.postUrl in your configuration file. See http://ckeditor.com/addon/inlinesave");
