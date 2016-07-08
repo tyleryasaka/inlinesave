@@ -69,7 +69,7 @@ In addition, it can be helpful to also use the focus and blur callbacks that CKE
     }
         *** OR ***
     onSave: function(editor) { 
-        $("spinner").show();    								    	// jQuery version
+        $("#spinner").show();    								    	// jQuery version
     }
 
     onSuccess: function(editor, data) {
@@ -78,7 +78,7 @@ In addition, it can be helpful to also use the focus and blur callbacks that CKE
     }
        *** OR ***
     onSuccess: function(editor, data) {
-    	$("spinner").hide(); 											// jQuery version
+    	$("#spinner").hide(); 											// jQuery version
     	//  other code ... maybe show a success notification
     }
     
@@ -88,7 +88,7 @@ In addition, it can be helpful to also use the focus and blur callbacks that CKE
     }
        *** OR ***
     onFailure: function(editor, status, request) {
-    	$("spinner").hide(); 											// jQuery version
+    	$("#spinner").hide(); 											// jQuery version
     	//  other code ... maybe show a failure notification
     }
     ```
