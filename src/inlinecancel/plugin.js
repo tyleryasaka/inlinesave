@@ -5,9 +5,8 @@ CKEDITOR.plugins.add( 'inlinecancel',
 		var config = editor.config.inlinecancel,
 			iconName;
 
-		if (typeof config == "undefined") { // Give useful error message if user doesn't define config.inlinesave
-			throw new Error("CKEditor inlinecancel: You must define config.inlinecancel in your configuration file. See http://ckeditor.com/addon/inlinecancel");
-			return;
+		if (typeof config == "undefined") {
+			config = {}; // default to empty object
 		}
 
 		iconName = !!config.useColorIcon ? 'inlinecancel-color.svg' : 'inlinecancel.svg';
@@ -16,11 +15,7 @@ CKEDITOR.plugins.add( 'inlinecancel',
 			{
 				exec : function( editor )
 				{
-					if(typeof editor.config.inlinecancel == 'undefined') { // give useful error message if user doesn't define config.inlinecancel
-						throw new Error("CKEditor inlinecancel: You must define config.inlinecancel in your configuration file. See http://ckeditor.com/addon/inlinecancel");
-						return;
-					}
-					var onCancel = editor.config.inlinecancel.onCancel;
+					var onCancel = config.onCancel;
 					if (typeof onCancel === "function") {
 						onCancel(editor);
 					}
