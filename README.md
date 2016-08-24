@@ -85,7 +85,7 @@ This is a simple cancel button for the CKEditor toolbar, designed to go along wi
 ####2. Set configuration options
 
 The options are:
-- `onCancel` (function; optional): function to call when the button is clicked; editor element is passed into this function (can be used to manually undo changes; see [notes](#notes))
+- `onCancel` (function; required): function to call when the button is clicked; editor element is passed into this function (can be used to manually undo changes; see [notes](#notes))
 - `useColorIcon` (boolean; optional): when `true`, icon will be red instead of gray
 
 Sample configuration object (place this in your configuration file):
