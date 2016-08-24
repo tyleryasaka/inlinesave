@@ -18,6 +18,8 @@ CKEDITOR.plugins.add( 'inlinecancel',
 					var onCancel = config.onCancel;
 					if (typeof onCancel === "function") {
 						onCancel(editor);
+					} else {
+						throw new Error("CKEditor inlinecancel: You must define config.inlinecancel as a function in your configuration file. See http://ckeditor.com/addon/inlinecancel");
 					}
 				}
 			});
