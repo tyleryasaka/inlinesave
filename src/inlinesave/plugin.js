@@ -4,12 +4,11 @@ CKEDITOR.plugins.add( 'inlinesave',
 	{
 		var config = editor.config.inlinesave,
 		    iconName;
-		    
+
 		if (typeof config == "undefined") { // Give useful error message if user doesn't define config.inlinesave
-			throw new Error("CKEditor inlinesave: You must define config.inlinesave in your configuration file. See http://ckeditor.com/addon/inlinesave");
-			return;
+			config = {}; // default to empty object
 		}
-		    
+
 		iconName = !!config.useColorIcon ? 'inlinesave-color.svg' : 'inlinesave.svg';
 
 		editor.addCommand( 'inlinesave',
@@ -19,7 +18,7 @@ CKEDITOR.plugins.add( 'inlinesave',
 					var postData = {},
 					    payload = '',
 					    contentType = 'application/x-www-form-urlencoded; charset=UTF-8';
-					
+
 					if (typeof config.postUrl == "undefined") { // Give useful error message if user doesn't define config.inlinesave.postUrl (or config.inlinesave)
 						throw new Error("CKEditor inlinesave: You must define config.inlinesave.postUrl in your configuration file. See http://ckeditor.com/addon/inlinesave");
 						return;
@@ -27,7 +26,7 @@ CKEDITOR.plugins.add( 'inlinesave',
 
 					if (typeof config.onSave == "function") {
 						var sendDataOk = config.onSave(editor); // Allow showing 'loading' spinner or aborting
-						
+
 						if (typeof sendDataOk != "undefined" && !sendDataOk) {  // Explicit return false?
 							if (typeof config.onFailure == "function") {
 								config.onFailure(editor, -1, null);  	// -1 means "Save aborted"
