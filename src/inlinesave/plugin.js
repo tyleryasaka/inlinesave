@@ -1,5 +1,6 @@
 CKEDITOR.plugins.add( 'inlinesave',
 {
+	lang: ["en", "de"],
 	init: function( editor )
 	{
 		var config = editor.config.inlinesave,
@@ -64,13 +65,25 @@ CKEDITOR.plugins.add( 'inlinesave',
 					xhttp.onreadystatechange = function () {
 						if (xhttp.readyState == 4) {
 							// If success, call onSuccess callback if defined
-							if (typeof config.onSuccess == "function" && xhttp.status == 200) {
-								// Allow server to return data via xhttp.response
-								config.onSuccess(editor, xhttp.response);
+							if (xhttp.status == 200) {
+								if(typeof config.onSuccess == "function") {
+									// Allow server to return data via xhttp.response
+									config.onSuccess(editor, xhttp.response);
+								}
+								// show notification
+								if(config.showSuccessMessage === true){
+									editor.showNotification(editor.lang.inlinesave.successMessage, "success");
+								}
 							}
 							// If error, call onFailure callback if defined
-							else if (typeof config.onFailure == "function") {
-								config.onFailure(editor, xhttp.status, xhttp);
+							else {
+								if (typeof config.onFailure == "function") {
+									config.onFailure(editor, xhttp.status, xhttp);
+								}
+								
+								if(config.showErrorMessage === true){
+									editor.showNotification(editor.lang.inlinesave.errorMessage, "warning");
+								}
 							}
 						}
 					};
