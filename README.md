@@ -7,11 +7,11 @@ http://ckeditor.com/addon/inlinesave
 
 This plugin allows the user to save the content for a CKEditor inline editor via http POST.
 
-###Usage
+### Usage
 
-####1. Add the plugin to your editor. [Help](http://docs.ckeditor.com/#!/guide/dev_plugins)
+#### 1. Add the plugin to your editor. [Help](http://docs.ckeditor.com/#!/guide/dev_plugins)
 
-####2. Set configuration options
+#### 2. Set configuration options
 
 The options are:
 - `postUrl` (string; required): the url to send the data to, via http POST
@@ -34,7 +34,7 @@ Sample configuration object (place this in your configuration file or use when i
       useColorIcon: false
     };
 
-####3. Receive the data on your server.
+#### 3. Receive the data on your server.
 
 By default, the data is sent with Content-type 'application/x-www-form-urlencoded' (this is the default type for HTML forms). However, if `config.inlinesave.useJSON` is set to `true`, then the Content-type will be 'application/json' and the data will be sent as a JSON object.
 
@@ -51,7 +51,7 @@ Example data:
 
 Note that 'test' was an additional field specified in `config.inlinesave.postData` (as demonstrated in the example configuration above).
 
-###Display label
+### Display label
 
 ![Save label](docs/img/save-label.png)
 
@@ -61,13 +61,13 @@ If you want the label "Save" to display next to the icon, add the following css 
         display: inline;
     }
 
-###Use Color Icon
+### Use Color Icon
 
 ![Color icon](docs/img/save-color.png)
 
 If you set the `useColorIcon` configuration option to `true` (see above), the icon will be green instead of grey.
 
-###More examples
+### More examples
 
 If you would like to see more detailed examples and some neat uses for the plugin, check out [callbacks.md](https://github.com/tyleryasaka/inlinesave/blob/master/callbacks.md).
 
@@ -78,11 +78,11 @@ http://ckeditor.com/addon/inlinecancel
 
 This is a simple cancel button for the CKEditor toolbar, designed to go along with the inlinesave addon (above). A custom `onCancel` function can be specified, allowing the developer to implement his/her own functionality for the button.
 
-###Usage
+### Usage
 
-####1. Add the plugin to your editor. [Help](http://docs.ckeditor.com/#!/guide/dev_plugins)
+#### 1. Add the plugin to your editor. [Help](http://docs.ckeditor.com/#!/guide/dev_plugins)
 
-####2. Set configuration options
+#### 2. Set configuration options
 
 The options are:
 - `onCancel` (function; required): function to call when the button is clicked; editor element is passed into this function (can be used to manually undo changes; see [notes](#notes))
@@ -95,7 +95,7 @@ Sample configuration object (place this in your configuration file):
       useColorIcon: false
     };
 
-###Display label
+### Display label
 
 ![Cancel label](docs/img/cancel-label.png)
 
@@ -105,12 +105,12 @@ If you want the label "Cancel" to display next to the icon, add the following cs
         display: inline;
     }
 
-###Use Color Icon
+### Use Color Icon
 
 ![Color icon](docs/img/cancel-color.png)
 
 If you set the `useColorIcon` configuration option to `true` (see above), the icon will be red instead of grey.
 
-###Credits
+### Credits
 
 Thanks to [@SteveTheTechie](https://github.com/SteveTheTechie) for contributing some snazziness to both of the addons
