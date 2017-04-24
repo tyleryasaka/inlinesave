@@ -1,6 +1,5 @@
 CKEDITOR.plugins.add( 'inlinesave',
 {
-	lang: ["en", "de"],
 	init: function( editor )
 	{
 		var config = editor.config.inlinesave,
@@ -71,8 +70,8 @@ CKEDITOR.plugins.add( 'inlinesave',
 									config.onSuccess(editor, xhttp.response);
 								}
 								// show notification
-								if(config.showSuccessMessage === true){
-									editor.showNotification(editor.lang.inlinesave.successMessage, "success");
+								if(config.successMessage) {
+									editor.showNotification(config.successMessage, "success");
 								}
 							}
 							// If error, call onFailure callback if defined
@@ -80,9 +79,9 @@ CKEDITOR.plugins.add( 'inlinesave',
 								if (typeof config.onFailure == "function") {
 									config.onFailure(editor, xhttp.status, xhttp);
 								}
-								
-								if(config.showErrorMessage === true){
-									editor.showNotification(editor.lang.inlinesave.errorMessage, "warning");
+
+								if(config.errorMessage) {
+									editor.showNotification(config.errorMessage, "warning");
 								}
 							}
 						}
