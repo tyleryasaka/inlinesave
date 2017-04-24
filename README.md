@@ -19,6 +19,8 @@ The options are:
 - `onSave` (function; optional): function to call when the save button is pressed; editor element is passed into this function; if `false` is returned, data will not be sent to server
 - `onSuccess` (function; optional): function to call when data is sent successfully; editor element and http response data are passed into this function
 - `onFailure` (function; optional): function to call when data cannot be sent; the editor element, http status code, and [XMLHttpRequest](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest) object are passed into this function
+- `successMessage` (string; optional): [CKEditor notification message](http://docs.ckeditor.com/#!/guide/dev_notifications) on success
+- `errorMessage` (string; optional): [CKEditor notification message](http://docs.ckeditor.com/#!/guide/dev_notifications) on error
 - `useJSON` (boolean; optional): when `true`, the plugin will send data to the server with Content-type 'application/json'; defaults to `false` and uses Content-type 'application/x-www-form-urlencoded' (see step #3)
 - `useColorIcon` (boolean; optional): when `true`, icon will be green instead of gray
 
@@ -30,6 +32,8 @@ Sample configuration object (place this in your configuration file or use when i
       onSave: function(editor) { console.log('clicked save', editor); return true; },
       onSuccess: function(editor, data) { console.log('save successful', editor, data); },
       onFailure: function(editor, status, request) { console.log('save failed', editor, status, request); },
+      successMessage: 'Yay we saved it!',
+      errorMessage: 'Something went wrong :(',
       useJSON: false,
       useColorIcon: false
     };
