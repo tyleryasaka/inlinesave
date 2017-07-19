@@ -1,5 +1,6 @@
 CKEDITOR.plugins.add( 'inlinesave',
 {
+	requires: 'notification',
 	init: function( editor )
 	{
 		var config = editor.config.inlinesave,
