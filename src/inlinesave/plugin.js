@@ -12,6 +12,27 @@ CKEDITOR.plugins.add( 'inlinesave',
 
 		iconName = !!config.useColorIcon ? 'inlinesave-color.svg' : 'inlinesave.svg';
 
+		// remind to save unsaved changes
+		if(config.confirmUnsavedChanged)
+		{
+			window.onbeforeunload = function(eventArgs)
+			{
+				if(editor.checkDirty())
+				{
+					var message = editor.lang.inlinesave.leaveConfirmMessage;
+					eventArgs = eventArgs || window.event;
+					// For IE and Firefox
+					if (eventArgs) 
+					{
+						eventArgs.returnValue = message;
+					}
+
+					// For Safari
+					return message;
+				}
+			}
+		}
+
 		editor.addCommand( 'inlinesave',
 			{
 				exec : function( editor )
@@ -66,6 +87,8 @@ CKEDITOR.plugins.add( 'inlinesave',
 						if (xhttp.readyState == 4) {
 							// If success, call onSuccess callback if defined
 							if (xhttp.status == 200) {
+								editor.resetDirty( );
+								
 								if(typeof config.onSuccess == "function") {
 									// Allow server to return data via xhttp.response
 									config.onSuccess(editor, xhttp.response);
