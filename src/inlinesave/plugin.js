@@ -13,7 +13,7 @@ CKEDITOR.plugins.add( 'inlinesave',
 		iconName = !!config.useColorIcon ? 'inlinesave-color.svg' : 'inlinesave.svg';
 
 		// remind to save unsaved changes
-		if(config.confirmUnsavedChanged)
+		if(config.confirmUnsavedChanges)
 		{
 			window.onbeforeunload = function(eventArgs)
 			{
